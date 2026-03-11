@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Versículos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <div class="top-bar">
+        <p id="top-label" class="daily-label">📅 Versículo do Dia</p>
+        <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+    </div>
+
+    <h1>📖 Palavra de Deus</h1>
+
+    <div class="verse-card">
+        <div id="category"></div>
+        <div id="verse"></div>
+        <div id="reference"></div>
+        <div class="actions">
+            <button id="favorite-btn" onclick="favoriteVerse()">❤️ Favoritar</button>
+            <button onclick="copyVerse()">📋 Copiar</button>
+            <button onclick="shareVerse()">📤 Compartilhar</button>
+        </div>
+    </div>
+
+    <button class="btn" onclick="showRandomVerse()">Novo versículo</button>
+
+    <div class="categories">
+        <button onclick="loadCategory('ansiedade')">Ansiedade</button>
+        <button onclick="loadCategory('medo')">Medo</button>
+    </div>
+
+    <button onclick="showFavorites()">⭐ Meus Favoritos</button>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
