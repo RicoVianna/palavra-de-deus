@@ -243,9 +243,14 @@ if ("serviceWorker" in navigator) {
 }
 
 function copyVerse() {
-    const verseText = document.getElementById("verse").innerText;
-    navigator.clipboard.writeText(verseText);
-    alert("Versículo copiado!");
+    if (!currentVerse) {
+        alert("Nenhum versículo para copiar. Clique em 'Novo versículo'.")
+        return
+    }
+    const verseText =
+        currentVerse.reference + " - " + currentVerse.text
+    navigator.clipboard.writeText(verseText) 
+    alert("Versículo copiado!")
 }
 
 function findCategory(id) {
@@ -258,3 +263,4 @@ function findCategory(id) {
     return ""
 
 }
+
