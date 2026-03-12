@@ -1,3 +1,5 @@
+console.log("APP JS VERSAO NOVA 10");
+
 let allVerses = {}
 let verses = []
 let currentCategory = null
@@ -254,4 +256,5 @@ function findCategory(id) {
         }
     }
     return ""
+
 }
