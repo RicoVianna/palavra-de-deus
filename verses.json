@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "ansiedade": [
         {
@@ -50,4 +51,58 @@
             "text": "Medo teste 6"
         }
     ]
+=======
+{
+    "ansiedade": [
+        {
+            "id": "fp4_6",
+            "reference": "Filipenses 4:6-7",
+            "text": "Ansiedade teste 1"
+        },
+        {
+            "id": "mt6_34",
+            "reference": "Mateus 6:34",
+            "text": "Ansiedade teste 2"
+        },
+        {
+            "id": "sl55_22",
+            "reference": "Salmos 55:22",
+            "text": "Ansiedade teste 3"
+        },
+        { 
+            "id": "4", 
+            "reference": "Isaías 41:10", 
+            "text": "Ansiedade teste 4" 
+        },
+        { 
+            "id": "5", 
+            "reference": "Salmos 23:4", 
+            "text": "Ansiedade teste 5" 
+        },
+        { 
+            "id": "6", 
+            "reference": "Josué 1:9", 
+            "text": "Ansiedade teste 6" 
+        }
+
+    ],
+
+    "medo": [
+        {
+            "id": "is41_10",
+            "reference": "Isaias 41:10",
+            "text": "Medo teste 4"
+        },
+        {
+            "id": "sl23_4",
+            "reference": "Salmos 23:4",
+            "text": "Medo teste 5"
+        },
+        {
+            "id": "js1_9",
+            "reference": "Josué 1:9",
+            "text": "Medo teste 6"
+        }
+    ]
+>>>>>>> d83c774428df168056ffe70a59bcd2793518839d
 }
