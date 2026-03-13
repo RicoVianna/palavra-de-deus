@@ -1,4 +1,4 @@
-console.log("APP JS VERSAO LIMPA 10");
+console.log("APP JS VERSAO CORRIGIDA 11");
 
 let allVerses = {};
 let verses = [];
@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo(0, 0);
 });
 
+// -------------------------
+// THEME
+// -------------------------
 function loadTheme() {
     const savedTheme = localStorage.getItem("theme");
     const btn = document.getElementById("theme-toggle");
@@ -30,6 +33,22 @@ function loadTheme() {
     }
 }
 
+function toggleTheme() {
+    const body = document.body;
+    const btn = document.getElementById("theme-toggle");
+    body.classList.toggle("dark-mode");
+    if (body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+        btn.innerText = "☀️";
+    } else {
+        localStorage.setItem("theme", "light");
+        btn.innerText = "🌙";
+    }
+}
+
+// -------------------------
+// LOAD VERSES
+// -------------------------
 async function loadVerses() {
     try {
         const response = await fetch("verses.json");
@@ -38,7 +57,7 @@ async function loadVerses() {
         versesLoaded = true;
         console.log("Versículos carregados:", allVerses);
 
-        // Exibe o versículo do dia
+        // Versículo do dia
         const allVersesFlat = Object.values(allVerses).flat();
         const verseOfTheDay = getVerseOfTheDay(allVersesFlat);
         currentVerse = verseOfTheDay;
@@ -51,6 +70,19 @@ async function loadVerses() {
     }
 }
 
+function getVerseOfTheDay(verses) {
+    const today = new Date();
+    const start = new Date(today.getFullYear(), 0, 0);
+    const diff = today - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    const index = dayOfYear % verses.length;
+    return verses[index];
+}
+
+// -------------------------
+// SHUFFLE
+// -------------------------
 function shuffleArray(array) {
     let shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -80,12 +112,14 @@ function getNextVerse() {
     return verse;
 }
 
+// -------------------------
+// SHOW RANDOM / CATEGORY
+// -------------------------
 function showRandomVerse() {
     if (!versesLoaded) {
         alert("Versículos ainda não carregados.");
         return;
     }
-
     if (verses.length === 0) {
         const allVersesFlat = Object.values(allVerses).flat();
         verses = allVersesFlat;
@@ -99,6 +133,7 @@ function showRandomVerse() {
     const verseElement = document.getElementById("verse");
     const label = document.getElementById("top-label");
     label.innerText = "📖 Versículo";
+
     verseElement.classList.add("fade");
     setTimeout(() => {
         verseElement.innerText = verse.text;
@@ -127,17 +162,9 @@ function loadCategory(category) {
     document.getElementById("reference").innerText = "";
 }
 
-function getVerseOfTheDay(verses) {
-    const today = new Date();
-    const start = new Date(today.getFullYear(), 0, 0);
-    const diff = today - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
-    const index = dayOfYear % verses.length;
-    return verses[index];
-}
-
+// -------------------------
 // FAVORITOS
+// -------------------------
 function favoriteVerse() {
     if (!currentVerse) {
         alert("Nenhum versículo para favoritar. Clique em 'Novo versículo'.");
@@ -145,15 +172,17 @@ function favoriteVerse() {
     }
 
     let favorites = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
-    if (favorites.some(v => v.id === currentVerse.id)) {
-        alert("Este versículo já está nos favoritos.");
-        return;
+    const alreadySaved = favorites.some(v => v.id === currentVerse.id);
+
+    if (!alreadySaved) {
+        favorites.push(currentVerse);
+        localStorage.setItem("favoriteVerses", JSON.stringify(favorites));
+        alert("Versículo salvo nos favoritos ❤️");
+    } else {
+        alert("Este versículo já está nos favoritos ❤️");
     }
 
-    favorites.push(currentVerse);
-    localStorage.setItem("favoriteVerses", JSON.stringify(favorites));
-    alert("Versículo salvo nos favoritos ❤️");
-    updateFavoriteButton();
+    // **Botão principal nunca muda**
 }
 
 function showFavorites() {
@@ -177,13 +206,6 @@ function showFavorites() {
     setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
 }
 
-function updateFavoriteButton() {
-    const btn = document.getElementById("favorite-btn");
-    let favorites = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
-    const isFavorite = favorites.some(v => v.id === currentVerse?.id);
-    btn.innerText = isFavorite ? "💔 Remover favorito" : "❤️ Favoritar";
-}
-
 function removeFavorite(id) {
     let favorites = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
     favorites = favorites.filter(v => v.id !== id);
@@ -191,37 +213,9 @@ function removeFavorite(id) {
     showFavorites();
 }
 
-// COMPARTILHAR
-function shareVerse() {
-    if (!currentVerse) {
-        alert("Nenhum versículo para compartilhar.");
-        return;
-    }
-    const textToShare = currentVerse.reference + " - " + currentVerse.text;
-    window.open("https://wa.me/?text=" + encodeURIComponent(textToShare), "_blank");
-}
-
-// MODO CLARO / ESCURO
-function toggleTheme() {
-    const body = document.body;
-    const btn = document.getElementById("theme-toggle");
-    body.classList.toggle("dark-mode");
-    if (body.classList.contains("dark-mode")) {
-        localStorage.setItem("theme", "dark");
-        btn.innerText = "☀️";
-    } else {
-        localStorage.setItem("theme", "light");
-        btn.innerText = "🌙";
-    }
-}
-
-// SERVICE WORKER
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js")
-    .then(() => console.log("Service Worker registrado"));
-}
-
-// COPIAR
+// -------------------------
+// COPIAR / COMPARTILHAR
+// -------------------------
 function copyVerse() {
     if (!currentVerse) {
         alert("Nenhum versículo para copiar. Clique em 'Novo versículo'.");
@@ -232,7 +226,18 @@ function copyVerse() {
     alert("Versículo copiado!");
 }
 
-// BUSCAR CATEGORIA
+function shareVerse() {
+    if (!currentVerse) {
+        alert("Nenhum versículo para compartilhar.");
+        return;
+    }
+    const textToShare = currentVerse.reference + " - " + currentVerse.text;
+    window.open("https://wa.me/?text=" + encodeURIComponent(textToShare), "_blank");
+}
+
+// -------------------------
+// UTILITÁRIOS
+// -------------------------
 function findCategory(id) {
     for (const category in allVerses) {
         if (allVerses[category].some(v => v.id === id)) return category;
@@ -240,7 +245,17 @@ function findCategory(id) {
     return "";
 }
 
-// Inicia
+// -------------------------
+// SERVICE WORKER
+// -------------------------
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker registrado"));
+}
+
+// -------------------------
+// INIT
+// -------------------------
 window.onload = () => {
     loadTheme();
     loadVerses();
