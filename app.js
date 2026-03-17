@@ -189,7 +189,16 @@ function favoriteVerse() {
 
 function updateFavoriteButton() {}
 
+// ================= INICIALIZAÇÃO E SERVICE WORKER =================
+
 window.onload = () => {
     loadTheme();
     loadVerses();
+
+    // Registro do Service Worker para PWA e Offline
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+            .then(() => console.log("App pronto para uso offline!"))
+            .catch((err) => console.log("Erro ao registrar Service Worker:", err));
+    }
 };
