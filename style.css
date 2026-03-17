@@ -47,7 +47,7 @@ body {
 
 .verse-card {
     background: var(--card-bg);
-    padding: 40px 30px; /* Aumentei um pouco o respiro */
+    padding: 40px 30px;
     border-radius: 24px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     margin-bottom: 25px;
@@ -71,7 +71,7 @@ body {
 /* Estilização do Versículo com Aspas e Fonte Acolhedora */
 .verse-text {
     font-family: var(--font-serif);
-    font-size: 1.5rem; /* Um pouco maior para destacar */
+    font-size: 1.5rem;
     line-height: 1.5;
     margin-bottom: 20px;
     font-weight: 400;
@@ -80,30 +80,25 @@ body {
     font-style: italic;
 }
 
+/* ASPAS MODO CLARO */
 .verse-text::before {
     content: "“";
-    font-size: 3.5rem; /* Aumentei um pouquinho o tamanho */
-    color: #adb5bd;    /* Um cinza médio bem elegante e visível */
+    font-size: 3.5rem;
+    color: #adb5bd; /* Cinza médio visível */
     position: absolute;
     top: -35px;
     left: -15px;
-    opacity: 0.6;      /* Opacidade para não ficar pesado demais */
+    opacity: 0.6;
 }
 
 .verse-text::after {
     content: "”";
     font-size: 3.5rem;
-    color: #adb5bd;    /* O mesmo cinza aqui */
+    color: #adb5bd;
     position: absolute;
     bottom: -55px;
     right: -15px;
     opacity: 0.6;
-}
-
-/* Ajuste para o Modo Escuro não sumir */
-.dark-mode .verse-text::before, 
-.dark-mode .verse-text::after {
-    color: #495057; /* Um tom mais escuro para o modo dark */
 }
 
 .reference {
@@ -273,9 +268,11 @@ body {
     color: var(--primary);
 }
 
+/* ASPAS MODO ESCURO - Ajustadas para contraste ideal */
 .dark-mode .verse-text::before, 
 .dark-mode .verse-text::after {
-    color: #373a40;
+    color: #748ffc; /* Azul suave para destacar suavemente no escuro */
+    opacity: 0.3;   /* Opacidade baixa para ser acolhedora */
 }
 
 #theme-toggle {
