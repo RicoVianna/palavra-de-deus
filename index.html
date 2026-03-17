@@ -1,30 +1,27 @@
 
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Versículos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palavra de Deus - Versículos</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
 </head>
-
-
 <body>
 
 <div class="app">
-
     <div class="top-bar">
-        <p id="top-label" class="daily-label">📅 Versículo do Dia</p>
+        <h1>📖 Palavra de Deus</h1>
         <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
     </div>
 
-    <h1>📖 Palavra de Deus</h1>
-
     <div class="verse-card">
-        <div id="category"></div>
-        <div id="verse"></div>
-        <div id="reference"></div>
+        <span id="top-label" class="daily-label">📅 Versículo do Dia</span>
+        
+        <div id="category" style="display: none;"></div> <div id="verse" class="verse-text">Carregando palavra...</div>
+        <div id="reference" class="reference"></div>
+        
         <div class="actions">
             <button id="favorite-btn" onclick="favoriteVerse()">❤️ Favoritar</button>
             <button onclick="copyVerse()">📋 Copiar</button>
@@ -32,19 +29,26 @@
         </div>
     </div>
 
-    <button class="btn" onclick="showRandomVerse()">Novo versículo</button>
-
-    <div class="categories">
-        <button onclick="loadCategory('ansiedade')">Ansiedade</button>
-        <button onclick="loadCategory('medo')">Medo</button>
+    <div class="main-controls">
+        <button class="btn-primary" onclick="showRandomVerse()">✨ Novo versículo</button>
     </div>
 
-    <button onclick="showFavorites()">⭐ Meus Favoritos</button>
-    <div id="favorites-list"></div>
+    <div class="categories-section">
+        <p class="section-title">Como você se sente hoje?</p>
+        <div class="categories-grid">
+            <button onclick="loadCategory('ansiedade')">😰 Ansiedade</button>
+            <button onclick="loadCategory('medo')">😨 Medo</button>
+        </div>
+    </div>
 
+    <div class="footer-actions">
+        <button class="btn-favorites" onclick="toggleFavoritesPane()">⭐ Meus Favoritos</button>
+    </div>
+    
+    <div id="favorites-list" style="display:none;"></div>
 </div>
 
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 
 </body>
 </html>

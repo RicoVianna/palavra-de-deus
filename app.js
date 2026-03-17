@@ -1,261 +1,194 @@
-console.log("APP JS VERSAO CORRIGIDA 11");
-
 let allVerses = {};
 let verses = [];
-let currentCategory = null;
 let shuffledVerses = [];
-let usedVerses = [];
 let currentIndex = 0;
-let lastVerseId = null;
-let versesLoaded = false;
 let currentVerse = null;
+let versesLoaded = false;
+let currentCategory = null;
+let lastVerseId = null; // Memória para o último ID exibido
 
-// Evita scroll automático
-if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    window.scrollTo(0, 0);
-});
-
-// -------------------------
-// THEME
-// -------------------------
-function loadTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    const btn = document.getElementById("theme-toggle");
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        btn.innerText = "☀️";
-    } else {
-        btn.innerText = "🌙";
-    }
-}
-
-function toggleTheme() {
-    const body = document.body;
-    const btn = document.getElementById("theme-toggle");
-    body.classList.toggle("dark-mode");
-    if (body.classList.contains("dark-mode")) {
-        localStorage.setItem("theme", "dark");
-        btn.innerText = "☀️";
-    } else {
-        localStorage.setItem("theme", "light");
-        btn.innerText = "🌙";
-    }
-}
-
-// -------------------------
-// LOAD VERSES
-// -------------------------
 async function loadVerses() {
     try {
         const response = await fetch("verses.json");
         const data = await response.json();
         allVerses = data;
         versesLoaded = true;
-        console.log("Versículos carregados:", allVerses);
-
-        // Versículo do dia
+        
         const allVersesFlat = Object.values(allVerses).flat();
-        const verseOfTheDay = getVerseOfTheDay(allVersesFlat);
-        currentVerse = verseOfTheDay;
-
-        document.getElementById("verse").innerText = verseOfTheDay.text;
-        document.getElementById("reference").innerText = verseOfTheDay.reference;
-        document.getElementById("category").innerText = "📂 " + findCategory(verseOfTheDay.id);
+        displayVerse(getVerseOfTheDay(allVersesFlat), true);
     } catch (error) {
         console.error("Erro ao carregar versículos:", error);
     }
 }
 
-function getVerseOfTheDay(verses) {
+function getVerseOfTheDay(versesList) {
     const today = new Date();
-    const start = new Date(today.getFullYear(), 0, 0);
-    const diff = today - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
-    const index = dayOfYear % verses.length;
-    return verses[index];
+    const index = (today.getFullYear() + today.getMonth() + today.getDate()) % versesList.length;
+    return versesList[index];
 }
 
-// -------------------------
-// SHUFFLE
-// -------------------------
-function shuffleArray(array) {
-    let shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-}
-
-function reshuffleAvoidRepeat(lastVerseId) {
-    let newShuffle;
-    do {
-        newShuffle = shuffleArray(verses);
-    } while (newShuffle[0].id === lastVerseId);
-    return newShuffle;
-}
-
-function getNextVerse() {
-    if (currentIndex >= shuffledVerses.length) {
-        shuffledVerses = reshuffleAvoidRepeat(lastVerseId);
-        currentIndex = 0;
-        console.log("🔀 Nova rodada embaralhada");
-    }
-    const verse = shuffledVerses[currentIndex];
-    lastVerseId = verse.id;
-    currentIndex++;
-    return verse;
-}
-
-// -------------------------
-// SHOW RANDOM / CATEGORY
-// -------------------------
-function showRandomVerse() {
-    if (!versesLoaded) {
-        alert("Versículos ainda não carregados.");
-        return;
-    }
-    if (verses.length === 0) {
-        const allVersesFlat = Object.values(allVerses).flat();
-        verses = allVersesFlat;
-        shuffledVerses = shuffleArray(verses);
-        currentIndex = 0;
-    }
-
-    const verse = getNextVerse();
+function displayVerse(verse, isDaily = false) {
+    if (!verse) return;
     currentVerse = verse;
-
-    const verseElement = document.getElementById("verse");
+    lastVerseId = verse.id; // Salva o ID para a próxima verificação
+    
     const label = document.getElementById("top-label");
-    label.innerText = "📖 Versículo";
-
-    verseElement.classList.add("fade");
+    const card = document.querySelector(".verse-card");
+    card.style.opacity = 0;
+    
     setTimeout(() => {
-        verseElement.innerText = verse.text;
+        document.getElementById("verse").innerText = verse.text;
         document.getElementById("reference").innerText = verse.reference;
-        document.getElementById("category").innerText = "📂 " + findCategory(verse.id);
-        verseElement.classList.remove("fade");
+        
+        if (isDaily) {
+            label.innerText = "📅 Versículo do Dia";
+            label.style.background = "#eef2ff";
+        } else {
+            const catName = findCategory(verse.id);
+            label.innerText = "📂 " + catName.toUpperCase();
+            label.style.background = "#fff4e6";
+        }
+        
+        card.style.opacity = 1;
+        updateFavoriteButton();
     }, 200);
 }
 
+function findCategory(id) {
+    for (const cat in allVerses) {
+        if (allVerses[cat].some(v => v.id === id)) return cat;
+    }
+    return "Versículo";
+}
+
+function showRandomVerse() {
+    if (!versesLoaded) return;
+
+    if (shuffledVerses.length === 0 || currentIndex >= shuffledVerses.length) {
+        let pool;
+        if (currentCategory && allVerses[currentCategory]) {
+            pool = [...allVerses[currentCategory]];
+        } else {
+            pool = Object.values(allVerses).flat();
+        }
+
+        do {
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+        } while (pool.length > 1 && pool[0].id === lastVerseId); 
+
+        shuffledVerses = pool;
+        currentIndex = 0;
+    }
+
+    const nextVerse = shuffledVerses[currentIndex];
+    currentIndex++;
+    displayVerse(nextVerse, false);
+}
+
 function loadCategory(category) {
-    if (!versesLoaded) {
-        alert("Versículos ainda não carregados.");
-        return;
-    }
-
+    if (!versesLoaded) return;
+    
     currentCategory = category;
-    verses = allVerses[category];
-    shuffledVerses = shuffleArray(verses);
+    shuffledVerses = []; 
     currentIndex = 0;
-    lastVerseId = null;
-    usedVerses = [];
-    currentVerse = null;
-
-    document.getElementById("category").innerText = "📂 " + category;
-    document.getElementById("verse").innerText = "Clique em 'Novo versículo'";
-    document.getElementById("reference").innerText = "";
+    
+    showRandomVerse();
 }
 
-// -------------------------
-// FAVORITOS
-// -------------------------
-function favoriteVerse() {
-    if (!currentVerse) {
-        alert("Nenhum versículo para favoritar. Clique em 'Novo versículo'.");
-        return;
-    }
-
-    let favorites = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
-    const alreadySaved = favorites.some(v => v.id === currentVerse.id);
-
-    if (!alreadySaved) {
-        favorites.push(currentVerse);
-        localStorage.setItem("favoriteVerses", JSON.stringify(favorites));
-        alert("Versículo salvo nos favoritos ❤️");
-    } else {
-        alert("Este versículo já está nos favoritos ❤️");
-    }
-
-    // **Botão principal nunca muda**
-}
-
-function showFavorites() {
-    let favorites = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
-    const verseElement = document.getElementById("verse");
-
-    if (favorites.length === 0) {
-        verseElement.innerText = "Você ainda não tem versículos favoritos.";
-        return;
-    }
-
-    let html = "<h3>⭐ Seus Favoritos</h3>";
-    favorites.forEach(v => {
-        html += `<div class="verse-card">
-            <p>${v.text}<br><strong>${v.reference}</strong></p>
-            <button onclick="removeFavorite('${v.id}')">🗑 Remover</button>
-        </div>`;
-    });
-
-    verseElement.innerHTML = html;
-    setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
-}
+// ================= SEÇÃO DE FAVORITOS (ATUALIZADA) =================
 
 function removeFavorite(id) {
-    let favorites = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
-    favorites = favorites.filter(v => v.id !== id);
-    localStorage.setItem("favoriteVerses", JSON.stringify(favorites));
-    showFavorites();
+    let favs = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
+    favs = favs.filter(v => v.id !== id);
+    localStorage.setItem("favoriteVerses", JSON.stringify(favs));
+    
+    // Se a aba estiver aberta, redesenha para mostrar a exclusão na hora
+    const div = document.getElementById("favorites-list");
+    if (div.style.display === "block") {
+        renderFavorites(); 
+    }
 }
 
-// -------------------------
-// COPIAR / COMPARTILHAR
-// -------------------------
-function copyVerse() {
-    if (!currentVerse) {
-        alert("Nenhum versículo para copiar. Clique em 'Novo versículo'.");
-        return;
+function renderFavorites() {
+    const div = document.getElementById("favorites-list");
+    const favs = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
+    
+    if (favs.length === 0) {
+        div.innerHTML = "<h3>⭐ Meus Favoritos</h3><p style='text-align:center; color:#888;'>Sua lista está vazia.</p>";
+    } else {
+        let html = "<h3>⭐ Meus Favoritos</h3>";
+        favs.forEach(v => {
+            html += `
+                <div class="fav-item">
+                    <p>${v.text}<br><strong>${v.reference}</strong></p>
+                    <button class="btn-remove" onclick="removeFavorite('${v.id}')">🗑 Remover</button>
+                </div>`;
+        });
+        div.innerHTML = html;
     }
-    const verseText = currentVerse.reference + " - " + currentVerse.text;
-    navigator.clipboard.writeText(verseText);
-    alert("Versículo copiado!");
+}
+
+function toggleFavoritesPane() {
+    const div = document.getElementById("favorites-list");
+    const btn = document.querySelector(".btn-favorites");
+
+    if (div.style.display === "block") {
+        div.style.display = "none";
+        btn.innerText = "⭐ Meus Favoritos";
+    } else {
+        renderFavorites();
+        div.style.display = "block";
+        btn.innerText = "❌ Fechar Favoritos";
+        div.scrollIntoView({ behavior: "smooth" });
+    }
+}
+
+// ================= INTERFACE E TEMA =================
+
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    document.getElementById("theme-toggle").innerText = isDark ? "☀️" : "🌙";
+}
+
+function loadTheme() {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+        document.getElementById("theme-toggle").innerText = "☀️";
+    }
+}
+
+function copyVerse() {
+    if (!currentVerse) return;
+    const text = `${currentVerse.text} (${currentVerse.reference})`;
+    navigator.clipboard.writeText(text);
+    alert("Copiado!");
 }
 
 function shareVerse() {
-    if (!currentVerse) {
-        alert("Nenhum versículo para compartilhar.");
-        return;
+    if (!currentVerse) return;
+    const text = encodeURIComponent(`${currentVerse.text} (${currentVerse.reference})`);
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+}
+
+function favoriteVerse() {
+    if (!currentVerse) return;
+    let favs = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
+    if (!favs.some(v => v.id === currentVerse.id)) {
+        favs.push(currentVerse);
+        localStorage.setItem("favoriteVerses", JSON.stringify(favs));
+        alert("Favoritado! ❤️");
+    } else {
+        alert("Já está nos favoritos!");
     }
-    const textToShare = currentVerse.reference + " - " + currentVerse.text;
-    window.open("https://wa.me/?text=" + encodeURIComponent(textToShare), "_blank");
 }
 
-// -------------------------
-// UTILITÁRIOS
-// -------------------------
-function findCategory(id) {
-    for (const category in allVerses) {
-        if (allVerses[category].some(v => v.id === id)) return category;
-    }
-    return "";
-}
+function updateFavoriteButton() {}
 
-// -------------------------
-// SERVICE WORKER
-// -------------------------
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js")
-        .then(() => console.log("Service Worker registrado"));
-}
-
-// -------------------------
-// INIT
-// -------------------------
 window.onload = () => {
     loadTheme();
     loadVerses();
