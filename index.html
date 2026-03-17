@@ -43,12 +43,18 @@
     </div>
 
     <div class="categories-section">
-        <p class="section-title">Como você se sente hoje?</p>
-        <div class="categories-grid">
-            <button onclick="loadCategory('ansiedade')">😰 Ansiedade</button>
-            <button onclick="loadCategory('medo')">😨 Medo</button>
-        </div>
-    </div>
+    <p class="section-title">Como você se sente?</p>
+    <select id="category-selector" class="modern-select" onchange="loadCategory(this.value)">
+        <option value="" disabled selected>Escolha um tema...</option>
+        <option value="ansiedade">😰 Ansiedade</option>
+        <option value="medo">😨 Medo</option>
+        <option value="gratidao">🙏 Gratidão</option>
+        <option value="cansaco">😫 Cansaço</option>
+        <option value="esperanca">🌱 Esperança</option>
+        <option value="tristeza">😢 Tristeza</option>
+        <option value="paciencia">⏳ Paciência</option>
+    </select>
+</div>
 
     <div class="footer-actions">
         <button class="btn-favorites" onclick="toggleFavoritesPane()">⭐ Meus Favoritos</button>

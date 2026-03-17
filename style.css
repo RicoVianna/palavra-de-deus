@@ -1,5 +1,7 @@
+/* Importando a fonte Lora do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Segoe+UI:wght@400;600;700&display=swap');
+
 :root {
-    /* Cores Modo Claro */
     --primary: #3b5998;
     --secondary: #182848;
     --bg: #e9ecef;
@@ -9,6 +11,8 @@
     --accent-bg: #dbe4ff;
     --btn-bg: #ffffff;
     --btn-border: #ced4da;
+    /* Variável da nova fonte */
+    --font-serif: 'Lora', serif;
 }
 
 body {
@@ -41,10 +45,9 @@ body {
     color: var(--secondary);
 }
 
-/* Card Principal */
 .verse-card {
     background: var(--card-bg);
-    padding: 30px;
+    padding: 40px 30px; /* Aumentei um pouco o respiro */
     border-radius: 24px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     margin-bottom: 25px;
@@ -60,28 +63,59 @@ body {
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
+/* Estilização do Versículo com Aspas e Fonte Acolhedora */
 .verse-text {
-    font-size: 1.35rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    font-weight: 600;
+    font-family: var(--font-serif);
+    font-size: 1.5rem; /* Um pouco maior para destacar */
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-weight: 400;
     color: var(--text);
+    position: relative;
+    font-style: italic;
+}
+
+.verse-text::before {
+    content: "“";
+    font-size: 3.5rem; /* Aumentei um pouquinho o tamanho */
+    color: #adb5bd;    /* Um cinza médio bem elegante e visível */
+    position: absolute;
+    top: -35px;
+    left: -15px;
+    opacity: 0.6;      /* Opacidade para não ficar pesado demais */
+}
+
+.verse-text::after {
+    content: "”";
+    font-size: 3.5rem;
+    color: #adb5bd;    /* O mesmo cinza aqui */
+    position: absolute;
+    bottom: -55px;
+    right: -15px;
+    opacity: 0.6;
+}
+
+/* Ajuste para o Modo Escuro não sumir */
+.dark-mode .verse-text::before, 
+.dark-mode .verse-text::after {
+    color: #495057; /* Um tom mais escuro para o modo dark */
 }
 
 .reference {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: var(--primary);
     font-weight: bold;
+    margin-top: 10px;
     margin-bottom: 25px;
     display: block;
 }
 
-/* Botão de Reflexão Estilizado (NOVO) */
+/* Botão de Reflexão */
 .btn-reflection {
     display: inline-block;
     background-color: var(--accent-bg);
@@ -92,7 +126,7 @@ body {
     font-size: 0.85rem;
     font-weight: 700;
     cursor: pointer;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 25px auto;
     transition: all 0.3s ease;
 }
 
@@ -101,7 +135,6 @@ body {
     color: white;
 }
 
-/* Caixa de Reflexão (NOVA) */
 #reflection-box {
     background: rgba(0, 0, 0, 0.03);
     border-radius: 16px;
@@ -109,13 +142,13 @@ body {
     margin-bottom: 25px;
     text-align: left;
     border-left: 5px solid var(--primary);
-    display: none; /* Começa escondido */
+    display: none;
 }
 
 #reflection-text {
-    font-size: 0.95rem;
-    font-style: italic;
-    line-height: 1.5;
+    font-size: 1rem;
+    font-style: normal;
+    line-height: 1.6;
     margin: 0;
     color: var(--text);
 }
@@ -162,30 +195,26 @@ body {
     font-weight: bold;
     margin-bottom: 15px;
     color: var(--text-light);
+    text-align: center;
 }
 
-.categories-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 30px;
-}
-
-.categories-grid button {
-    background: var(--card-bg);
-    border: 2px solid var(--btn-border);
-    color: var(--text);
+.modern-select {
+    width: 100%;
     padding: 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    font-weight: bold;
+    border-radius: 16px;
+    border: 2px solid var(--btn-border);
+    background-color: var(--card-bg);
+    color: var(--text);
     font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b5998' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
     transition: all 0.2s;
-}
-
-.categories-grid button:hover {
-    border-color: var(--primary);
-    background: var(--accent-bg);
+    margin-bottom: 30px;
 }
 
 .btn-favorites {
@@ -242,6 +271,11 @@ body {
 
 .dark-mode .top-bar h1 {
     color: var(--primary);
+}
+
+.dark-mode .verse-text::before, 
+.dark-mode .verse-text::after {
+    color: #373a40;
 }
 
 #theme-toggle {

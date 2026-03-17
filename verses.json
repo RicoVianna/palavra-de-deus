@@ -1,54 +1,100 @@
 {
     "ansiedade": [
         {
-            "id": "fp4_6",
-            "reference": "Filipenses 4:6-7",
-            "text": "Não estejais inquietos por coisa alguma; antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplica, com ação de graças.",
-            "reflection": "A ansiedade nos faz sentir que estamos sozinhos no controle. Este verso convida a trocar a preocupação pela conversa com Deus."
+            "id": "ans_001",
+            "text": "Não andeis ansiosos por coisa alguma; antes em tudo sejam os vossos pedidos conhecidos diante de Deus pela oração e súplica com ações de graças.",
+            "reference": "Filipenses 4:6",
+            "reflection": "A ansiedade nos faz focar no 'e se', mas a oração nos faz focar em Quem está no controle. Troque a preocupação pela conversa com Deus."
         },
         {
-            "id": "mt6_34",
-            "reference": "Mateus 6:34",
-            "text": "Não vos inquieteis, pois, pelo dia de amanhã, porque o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu mal.",
-            "reflection": "A ansiedade é tentar viver o amanhã com as forças de hoje. Concentre-se no agora e confie que o amanhã terá sua própria provisão."
-        },
-        {
-            "id": "1pe5_7",
-            "reference": "1 Pedro 5:7",
+            "id": "ans_002",
             "text": "Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.",
-            "reflection": "Imagine entregar um fardo pesado para alguém mais forte. É exatamente isso que este versículo sugere que façamos com nossas preocupações."
-        },
-        {
-            "id": "sl94_19",
-            "reference": "Salmos 94:19",
-            "text": "No meio da multidão dos meus pensamentos dentro de mim, as tuas consolações recreiam a minha alma.",
-            "reflection": "Quando os pensamentos aceleram, o consolo divino atua como um freio suave, trazendo paz ao caos interno."
+            "reference": "1 Pedro 5:7",
+            "reflection": "Deus não apenas se importa com seus grandes problemas, mas com cada detalhe que tira o seu sono. Entregue e descanse."
         }
     ],
     "medo": [
         {
-            "id": "is41_10",
-            "reference": "Isaías 41:10",
-            "text": "Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço, e te ajudo, e te sustento com a tua destra fiel.",
-            "reflection": "O medo nos faz sentir pequenos. Deus nos lembra que a força dele é o que nos sustenta, não a nossa coragem própria."
-        },
-        {
-            "id": "sl23_4",
-            "reference": "Salmos 23:4",
-            "text": "Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam.",
-            "reflection": "O medo muitas vezes vem do desconhecido (o vale). A segurança não vem da ausência do perigo, mas da presença do Pastor."
-        },
-        {
-            "id": "2tm1_7",
-            "reference": "2 Timóteo 1:7",
-            "text": "Porque Deus não nos deu o espírito de temor, mas de fortaleza, e de amor, e de moderação.",
-            "reflection": "O medo paralisa, mas o espírito que recebemos nos move com equilíbrio e força. Você foi feito para ser resiliente."
-        },
-        {
-            "id": "js1_9",
+            "id": "med_001",
+            "text": "Não fui eu que ordenei a você? Seja forte e corajoso! Não se apavore nem desanime, pois o Senhor, o seu Deus, estará com você por onde você andar.",
             "reference": "Josué 1:9",
-            "text": "Não mo mandei eu? Esforça-te, e tem bom ânimo; não temas, nem te espantes; porque o Senhor teu Deus é contigo, por onde quer que andares.",
-            "reflection": "A coragem aqui não é a falta de medo, mas a obediência e a confiança de que Deus já está no lugar para onde você está indo."
+            "reflection": "A coragem não é a ausência de medo, mas a certeza de que você não está atravessando o caminho sozinho."
+        },
+        {
+            "id": "med_002",
+            "text": "O Senhor é a minha luz e a minha salvação; de quem terei medo? O Senhor é a fortaleza da minha vida; a quem temerei?",
+            "reference": "Salmos 27:1",
+            "reflection": "Quando olhamos para o tamanho de Deus, nossos medos perdem a força. Ele é o seu escudo seguro."
+        }
+    ],
+    "gratidao": [
+        {
+            "id": "gra_001",
+            "text": "Dêem graças ao Senhor, porque ele é bom; o seu amor dura para sempre.",
+            "reference": "Salmos 107:1",
+            "reflection": "A gratidão muda a nossa perspectiva: deixamos de olhar para o que falta e passamos a enxergar o que já recebemos."
+        },
+        {
+            "id": "gra_002",
+            "text": "Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.",
+            "reference": "1 Tessalonicenses 5:18",
+            "reflection": "Ser grato 'em tudo' não significa estar feliz com as crises, mas confiar que Deus permanece bom mesmo em meio a elas."
+        }
+    ],
+    "cansaco": [
+        {
+            "id": "can_001",
+            "text": "Venham a mim, todos os que estão cansados e sobrecarregados, e eu darei descanso a vocês.",
+            "reference": "Mateus 11:28",
+            "reflection": "Existe um descanso que o sono não resolve, mas a presença de Deus sim. Entregue o peso que você não foi feito para carregar."
+        },
+        {
+            "id": "can_002",
+            "text": "Mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias; correrão e não se cansarão; caminharão e não se fatigarão.",
+            "reference": "Isaías 40:31",
+            "reflection": "O cansaço é humano, mas o renovo é divino. Esperar em Deus é recarregar a bateria na fonte certa."
+        }
+    ],
+    "esperanca": [
+        {
+            "id": "esp_001",
+            "text": "Porque sou eu que conheço os planos que tenho para vocês', diz o Senhor, 'planos de fazê-los prosperar e não de causar dano, planos de dar a vocês esperança e um futuro.",
+            "reference": "Jeremias 29:11",
+            "reflection": "O autor da sua história conhece o fim dela. Mesmo que o capítulo de hoje pareça difícil, o final é de esperança."
+        },
+        {
+            "id": "esp_002",
+            "text": "A esperança não nos decepciona, porque Deus derramou seu amor em nossos corações, por meio do Espírito Santo que ele nos concedeu.",
+            "reference": "Romanos 5:5",
+            "reflection": "A esperança cristã não é um 'quem sabe', é uma âncora firme baseada no amor que Deus já provou que tem por nós."
+        }
+    ],
+    "tristeza": [
+        {
+            "id": "tri_001",
+            "text": "O Senhor está perto dos que têm o coração quebrantado e salva os de espírito abatido.",
+            "reference": "Salmos 34:18",
+            "reflection": "Nos momentos de tristeza profunda, Deus não assiste de longe. Ele se aproxima ainda mais para curar as feridas."
+        },
+        {
+            "id": "tri_002",
+            "text": "O choro pode durar uma noite, mas a alegria vem pela manhã.",
+            "reference": "Salmos 30:5",
+            "reflection": "Nenhuma fase difícil é eterna. A noite da tristeza vai passar e o sol da alegria voltará a brilhar no seu rosto."
+        }
+    ],
+    "paciencia": [
+        {
+            "id": "pac_001",
+            "text": "Espere pelo Senhor. Seja forte! Coragem! Espere pelo Senhor.",
+            "reference": "Salmos 27:14",
+            "reflection": "A pressa é a ansiedade tentando controlar o tempo. A paciência é a fé descansando no tempo de Deus."
+        },
+        {
+            "id": "pac_002",
+            "text": "O fruto do Espírito é: amor, alegria, paz, paciência, amabilidade, bondade, fidelidade.",
+            "reference": "Gálatas 5:22",
+            "reflection": "Paciência não é algo que a gente 'fabrica' sozinho, é um fruto que cresce conforme caminhamos com Deus. Deixe Ele trabalhar em você."
         }
     ]
 }
