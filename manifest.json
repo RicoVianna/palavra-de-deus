@@ -1,21 +1,24 @@
-
 {
+    "short_name": "Palavra",
     "name": "Palavra de Deus",
-    "short_name": "Versículos",
+    "description": "Versículos diários para sua meditação.",
     "start_url": "index.html",
     "display": "standalone",
-    "background_color": "#f2f2f2",
-    "theme_color": "#4b6cb7",
+    "orientation": "portrait",
+    "background_color": "#ffffff",
+    "theme_color": "#182848",
     "icons": [
         {
             "src": "icon-192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
             "src": "icon-512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         }
-    ]
+    ],
 }
