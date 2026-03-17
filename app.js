@@ -5,7 +5,7 @@ let currentIndex = 0;
 let currentVerse = null;
 let versesLoaded = false;
 let currentCategory = null;
-let lastVerseId = null; // Memória para o último ID exibido
+let lastVerseId = null;
 
 async function loadVerses() {
     try {
@@ -30,10 +30,15 @@ function getVerseOfTheDay(versesList) {
 function displayVerse(verse, isDaily = false) {
     if (!verse) return;
     currentVerse = verse;
-    lastVerseId = verse.id; // Salva o ID para a próxima verificação
-    
+    lastVerseId = verse.id;
+
     const label = document.getElementById("top-label");
     const card = document.querySelector(".verse-card");
+    
+    // Esconde a reflexão anterior ao mudar de verso
+    const reflectionDiv = document.getElementById("reflection-box");
+    if (reflectionDiv) reflectionDiv.style.display = "none";
+
     card.style.opacity = 0;
     
     setTimeout(() => {
@@ -98,14 +103,32 @@ function loadCategory(category) {
     showRandomVerse();
 }
 
-// ================= SEÇÃO DE FAVORITOS (ATUALIZADA) =================
+// ================= FUNÇÃO DE REFLEXÃO (INTEGRADA) =================
+
+function toggleReflection() {
+    const reflectionDiv = document.getElementById("reflection-box");
+    const reflectionText = document.getElementById("reflection-text");
+
+    if (reflectionDiv.style.display === "block") {
+        reflectionDiv.style.display = "none";
+    } else {
+        if (currentVerse && currentVerse.reflection) {
+            reflectionText.innerText = currentVerse.reflection;
+            reflectionDiv.style.display = "block";
+            reflectionDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } else {
+            alert("Reflexão ainda não disponível para este versículo.");
+        }
+    }
+}
+
+// ================= SEÇÃO DE FAVORITOS =================
 
 function removeFavorite(id) {
     let favs = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
     favs = favs.filter(v => v.id !== id);
     localStorage.setItem("favoriteVerses", JSON.stringify(favs));
     
-    // Se a aba estiver aberta, redesenha para mostrar a exclusão na hora
     const div = document.getElementById("favorites-list");
     if (div.style.display === "block") {
         renderFavorites(); 
@@ -189,13 +212,12 @@ function favoriteVerse() {
 
 function updateFavoriteButton() {}
 
-// ================= INICIALIZAÇÃO E SERVICE WORKER =================
+// ================= INICIALIZAÇÃO =================
 
 window.onload = () => {
     loadTheme();
     loadVerses();
 
-    // Registro do Service Worker para PWA e Offline
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js')
             .then(() => console.log("App pronto para uso offline!"))

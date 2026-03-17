@@ -19,8 +19,17 @@
     <div class="verse-card">
         <span id="top-label" class="daily-label">📅 Versículo do Dia</span>
         
-        <div id="category" style="display: none;"></div> <div id="verse" class="verse-text">Carregando palavra...</div>
+        <div id="category" style="display: none;"></div> 
+        <div id="verse" class="verse-text">Carregando palavra...</div>
         <div id="reference" class="reference"></div>
+
+        <button class="btn-reflection" onclick="toggleReflection()">
+            ✨ Ver Reflexão
+        </button>
+
+        <div id="reflection-box" style="display: none;">
+            <p id="reflection-text"></p>
+        </div>
         
         <div class="actions">
             <button id="favorite-btn" onclick="favoriteVerse()">❤️ Favoritar</button>

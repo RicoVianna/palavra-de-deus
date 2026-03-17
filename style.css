@@ -1,12 +1,12 @@
 :root {
-    /* Cores Modo Claro - Ajustadas para melhor contraste */
+    /* Cores Modo Claro */
     --primary: #3b5998;
     --secondary: #182848;
-    --bg: #e9ecef; /* Um cinza levemente mais profundo para destacar os cards */
+    --bg: #e9ecef;
     --card-bg: #ffffff;
     --text: #212529;
     --text-light: #495057;
-    --accent-bg: #dbe4ff; /* Fundo das categorias no card */
+    --accent-bg: #dbe4ff;
     --btn-bg: #ffffff;
     --btn-border: #ced4da;
 }
@@ -52,7 +52,6 @@ body {
     border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Rótulo da Categoria/Dia */
 .daily-label {
     display: inline-block;
     background: var(--accent-bg);
@@ -82,7 +81,46 @@ body {
     display: block;
 }
 
-/* Botões de Ação (Favoritar, Copiar, Compartilhar) */
+/* Botão de Reflexão Estilizado (NOVO) */
+.btn-reflection {
+    display: inline-block;
+    background-color: var(--accent-bg);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 0 auto 20px auto;
+    transition: all 0.3s ease;
+}
+
+.btn-reflection:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Caixa de Reflexão (NOVA) */
+#reflection-box {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 25px;
+    text-align: left;
+    border-left: 5px solid var(--primary);
+    display: none; /* Começa escondido */
+}
+
+#reflection-text {
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--text);
+}
+
+/* Botões de Ação */
 .actions {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -106,7 +144,6 @@ body {
     border-color: var(--primary);
 }
 
-/* Botão Novo Versículo */
 .btn-primary {
     width: 100%;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -121,7 +158,6 @@ body {
     box-shadow: 0 6px 20px rgba(59, 89, 152, 0.3);
 }
 
-/* Seção de Categorias (Ansiedade/Medo) */
 .section-title {
     font-weight: bold;
     margin-bottom: 15px;
@@ -152,7 +188,6 @@ body {
     background: var(--accent-bg);
 }
 
-/* Favoritos */
 .btn-favorites {
     background: transparent;
     color: var(--primary);
@@ -201,12 +236,12 @@ body {
     --btn-border: #373a40;
 }
 
-.dark-mode .top-bar h1 {
-    color: var(--primary);
+.dark-mode #reflection-box {
+    background: rgba(255, 255, 255, 0.05);
 }
 
-.dark-mode .btn-primary {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+.dark-mode .top-bar h1 {
+    color: var(--primary);
 }
 
 #theme-toggle {

@@ -1,54 +1,54 @@
-
 {
     "ansiedade": [
         {
             "id": "fp4_6",
             "reference": "Filipenses 4:6-7",
-            "text": "Ansiedade teste 1"
+            "text": "Não estejais inquietos por coisa alguma; antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplica, com ação de graças.",
+            "reflection": "A ansiedade nos faz sentir que estamos sozinhos no controle. Este verso convida a trocar a preocupação pela conversa com Deus."
         },
         {
             "id": "mt6_34",
             "reference": "Mateus 6:34",
-            "text": "Ansiedade teste 2"
+            "text": "Não vos inquieteis, pois, pelo dia de amanhã, porque o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu mal.",
+            "reflection": "A ansiedade é tentar viver o amanhã com as forças de hoje. Concentre-se no agora e confie que o amanhã terá sua própria provisão."
         },
         {
-            "id": "sl55_22",
-            "reference": "Salmos 55:22",
-            "text": "Ansiedade teste 3"
+            "id": "1pe5_7",
+            "reference": "1 Pedro 5:7",
+            "text": "Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.",
+            "reflection": "Imagine entregar um fardo pesado para alguém mais forte. É exatamente isso que este versículo sugere que façamos com nossas preocupações."
         },
-        { 
-            "id": "4", 
-            "reference": "Isaías 41:10", 
-            "text": "Ansiedade teste 4" 
-        },
-        { 
-            "id": "5", 
-            "reference": "Salmos 23:4", 
-            "text": "Ansiedade teste 5" 
-        },
-        { 
-            "id": "6", 
-            "reference": "Josué 1:9", 
-            "text": "Ansiedade teste 6" 
+        {
+            "id": "sl94_19",
+            "reference": "Salmos 94:19",
+            "text": "No meio da multidão dos meus pensamentos dentro de mim, as tuas consolações recreiam a minha alma.",
+            "reflection": "Quando os pensamentos aceleram, o consolo divino atua como um freio suave, trazendo paz ao caos interno."
         }
-
     ],
-
     "medo": [
         {
             "id": "is41_10",
-            "reference": "Isaias 41:10",
-            "text": "Medo teste 4"
+            "reference": "Isaías 41:10",
+            "text": "Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço, e te ajudo, e te sustento com a tua destra fiel.",
+            "reflection": "O medo nos faz sentir pequenos. Deus nos lembra que a força dele é o que nos sustenta, não a nossa coragem própria."
         },
         {
             "id": "sl23_4",
             "reference": "Salmos 23:4",
-            "text": "Medo teste 5"
+            "text": "Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam.",
+            "reflection": "O medo muitas vezes vem do desconhecido (o vale). A segurança não vem da ausência do perigo, mas da presença do Pastor."
+        },
+        {
+            "id": "2tm1_7",
+            "reference": "2 Timóteo 1:7",
+            "text": "Porque Deus não nos deu o espírito de temor, mas de fortaleza, e de amor, e de moderação.",
+            "reflection": "O medo paralisa, mas o espírito que recebemos nos move com equilíbrio e força. Você foi feito para ser resiliente."
         },
         {
             "id": "js1_9",
             "reference": "Josué 1:9",
-            "text": "Medo teste 6"
+            "text": "Não mo mandei eu? Esforça-te, e tem bom ânimo; não temas, nem te espantes; porque o Senhor teu Deus é contigo, por onde quer que andares.",
+            "reflection": "A coragem aqui não é a falta de medo, mas a obediência e a confiança de que Deus já está no lugar para onde você está indo."
         }
     ]
 }
