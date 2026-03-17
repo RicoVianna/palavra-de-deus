@@ -224,3 +224,36 @@ window.onload = () => {
             .catch((err) => console.log("Erro ao registrar Service Worker:", err));
     }
 };
+
+let deferredPrompt;
+const installContainer = document.getElementById('install-container');
+const btnInstall = document.getElementById('btn-install');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Impede que o Chrome mostre o aviso automático muito cedo
+    e.preventDefault();
+    // Guarda o evento para usar depois
+    deferredPrompt = e;
+    // Mostra o nosso botão personalizado
+    installContainer.style.display = 'block';
+});
+
+btnInstall.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        // Mostra o prompt de instalação
+        deferredPrompt.prompt();
+        // Espera a resposta do usuário
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`Usuário escolheu: ${outcome}`);
+        // Limpa o prompt para não ser usado de novo
+        deferredPrompt = null;
+        // Esconde o botão após a instalação
+        installContainer.style.display = 'none';
+    }
+});
+
+// Esconde o botão se o app já estiver instalado
+window.addEventListener('appinstalled', () => {
+    installContainer.style.display = 'none';
+    console.log('App instalado com sucesso!');
+});
