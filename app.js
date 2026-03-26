@@ -6,6 +6,7 @@ let currentVerse = null;
 let versesLoaded = false;
 let currentCategory = null;
 let lastVerseId = null;
+window.isPremium = window.isPremium || false;
 
 async function loadVerses() {
     try {
@@ -106,6 +107,14 @@ function loadCategory(category) {
 // ================= FUNÇÃO DE REFLEXÃO (INTEGRADA) =================
 
 function toggleReflection() {
+    // AJUSTE DEFINITIVO: Verifica no navegador e no disco se o usuário é Premium
+    const isPremiumStatus = window.isPremium || localStorage.getItem('isPremium') === 'true';
+
+    if (!isPremiumStatus) { 
+        openPremiumModal(); 
+        return;
+    }
+
     const reflectionDiv = document.getElementById("reflection-box");
     const reflectionText = document.getElementById("reflection-text");
 
@@ -116,14 +125,45 @@ function toggleReflection() {
             reflectionText.innerText = currentVerse.reflection;
             reflectionDiv.style.display = "block";
             reflectionDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        } else {
-            alert("Reflexão ainda não disponível para este versículo.");
         }
     }
 }
 
-// ================= SEÇÃO DE FAVORITOS =================
+// Funções de controle do Modal
+function openPremiumModal() {
+    document.getElementById("premium-modal").style.display = "flex";
+}
 
+function closePremiumModal() {
+    document.getElementById("premium-modal").style.display = "none";
+}
+
+function handleSubscription() {
+    // Aqui no futuro você colocará o link do checkout (Stripe/Mercado Pago)
+    alert("Redirecionando para a página de pagamento...");
+}
+
+// Funções para o Modal de Login
+function openLoginModal() {
+    document.getElementById("login-modal").style.display = "flex";
+}
+
+function closeLoginModal() {
+    document.getElementById("login-modal").style.display = "none";
+}
+
+function handleEmailLogin() {
+    const email = document.getElementById("user-email").value;
+    if(email) {
+        alert("Enviamos um link de acesso para: " + email);
+        closeLoginModal();
+    } else {
+        alert("Por favor, digite um e-mail válido.");
+    }
+}
+
+
+// ================= SEÇÃO DE FAVORITOS =================
 function removeFavorite(id) {
     let favs = JSON.parse(localStorage.getItem("favoriteVerses")) || [];
     favs = favs.filter(v => v.id !== id);
@@ -218,11 +258,24 @@ window.onload = () => {
     loadTheme();
     loadVerses();
 
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js')
-            .then(() => console.log("App pronto para uso offline!"))
-            .catch((err) => console.log("Erro ao registrar Service Worker:", err));
+    // --- LOGICA DO BONEQUINHO VERDE (INJEÇÃO DIRETA) ---
+    const isPremiumStatus = localStorage.getItem('isPremium') === 'true';
+    const authBtn = document.getElementById('auth-btn');
+    
+    if (isPremiumStatus && authBtn) {
+        authBtn.textContent = "✅"; // Força o ícone verde
+        authBtn.onclick = null;     // Desativa o clique do modal
+        window.isPremium = true;    // Garante que a reflexão abra
+        console.log("Sistema: Login restaurado via LocalStorage!");
     }
+    // --------------------------------------------------
+
+    // Service Worker desativado temporariamente para evitar conflitos de cache
+    // if ('serviceWorker' in navigator) {
+    //    navigator.serviceWorker.register('./service-worker.js')
+    //        .then(() => console.log("App pronto para uso offline!"))
+    //        .catch((err) => console.log("Erro ao registrar Service Worker:", err));
+    // }
 };
 
 let deferredPrompt;

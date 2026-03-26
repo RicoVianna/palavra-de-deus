@@ -1,4 +1,4 @@
-const CACHE_NAME = 'palavra-de-deus-v2';
+const CACHE_NAME = 'palavra-de-deus-v3';
 const ASSETS = [
   './',
   './index.html',
