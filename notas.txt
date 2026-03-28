@@ -1,0 +1,5 @@
+Nome do Projeto: Default Gemini Project
+
+Chave de API: AIzaSyApNaYhkjSk5m9d6PPQ_AWY9RKRKNM_WMQ
+
+Link do GitHub Pages: https://ricovianna.github.io/palavra-de-deus/*
